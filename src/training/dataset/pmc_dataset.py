@@ -45,7 +45,9 @@ class PmcDataset(Dataset):
     def __getitem__(self, idx):
         output = dict.fromkeys(["images", "bert_input", "bert_label"], None)
         if self.args.image_dir is None:
-            image_path = self.images[idx]
+            self.args.image_dir = "../pmc_oa_beta/caption_T060_filtered_top4_sep_v0_subfigures"
+            image_path = f'{self.args.image_dir}/{self.images[idx]}'
+            # image_path = self.images[idx]
         else:
             image_path = f'{self.args.image_dir}/{self.images[idx]}'
         images = self.transforms(Image.open(str(image_path)))
